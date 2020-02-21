@@ -1,0 +1,69 @@
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.0.3"> </script> 
+
+ 
+
+
+Note: Check your developer console --&gt; Application --&gt; Key for the 4 files that may be saved differently on your machine.<br>
+On my machine they have the same root as the below localStorage identifier: <br>
+<b>info</b> <br>
+<b> model_topology</b>  (the one this code loads)<br>
+<b> weight_data</b>  (this is in binary format. Does not load into this textarea)<br>
+<b> weight_specs</b>  <br><br>
+ 
+ 
+ 
+localStorage identifier: <input size="120" id="myLocalFileName" type="text" value="tensorflowjs_models/myMultiModel01/model_topology"><br> 
+<input id="myButton123" type="button" value="Define Multi Input Keras Model" onclick="{
+    (async function(){
+    console.log('Defining Model')  
+                                                                                             
+ /////////////////////////////////// DEFINE THE MODEL /////////////////////////////////////////////////////////                                                                                                 
+   
+   // example of a single input keras layers                                                                         
+   // model = tf.sequential(); // no const so that it is a global variable 
+   // model.add(tf.layers.dense({ units: 20,  inputShape: [1] }) );  
+   // model.add(tf.layers.dense({ units: 20 }) );  
+   // model.add(tf.layers.dense({ units:  1 }) );   
+                                                                                             
+   // Now a multi input keras layers with concatenation                                                                                          
+   const myInput1 = tf.input({shape: [1], name: 'myInput1'});
+   const myInput1Dense1 = tf.layers.dense({units: 20, name: 'myInput1Dense1'}).apply(myInput1);
+   const myInput1Dense2 = tf.layers.dense({units: 20, name: 'myInput1Dense2'}).apply(myInput1Dense1);
+   const myInput1Dense3 = tf.layers.dense({units: 1, name: 'myInput1Dense3'}).apply(myInput1Dense2)
+                                                                                             
+                                                                                                
+   const myInput2 = tf.input({shape: [1], name: 'myInput2'});
+   const myInput2Dense1 = tf.layers.dense({units: 20, name: 'myInput2Dense1'}).apply(myInput2);
+   const myInput2Dense2 = tf.layers.dense({units: 20, name: 'myInput2Dense2'}).apply(myInput2Dense1);
+   const myInput2Dense3 = tf.layers.dense({units: 1, name: 'myInput2Dense3'}).apply(myInput2Dense2)                                                                                          
+                                                                                             
+   const myConcatenate1 = tf.layers.concatenate({axis : 1, name: 'myConcatenate1'}).apply([myInput1Dense3, myInput2Dense3]);                                                                                               
+   const myConcatenate1Dense4 = tf.layers.dense({units: 1, name: 'myConcatenate1Dense4'}).apply(myConcatenate1)                                                                                              
+                                                                                             
+   model2 = tf.model({inputs: [myInput1,myInput2], outputs: myConcatenate1Dense4});    // This would be a global model
+                                                                                     
+   console.log('Printing Model to web page')                                                                                                                                                                                   
+   await model2.summary(null,null,x => {document.getElementById('myDiv123').innerHTML += x + '<br>'}); 
+                                                                                     
+   console.log('Saving Model to local storage')                                                                                    
+   const saveResults = await model2.save('localstorage://myMultiModel01');                                                                                  
+                                                                           
+   console.log('Loading model information from local storage')   
+   console.log('Note: This is very different than loading the model!') 
+   const myLocalIncomingFile = localStorage.getItem(document.getElementById('myLocalFileName').value)                                                                            
+   // console.log(cool)                                                                                    
+                                                                                
+   console.log('Inserting model.json file into webpage textarea')                                                                                    
+   document.getElementById('myArea01').value   = JSON.stringify(JSON.parse(myLocalIncomingFile), null, 3)                                                                                          
+                                                                                             
+                                                                             
+  })()  // end inline async function                                                                          
+                                                                            
+                                                                            
+}"><br><br>
+
+ 
+ <textarea id="myArea01" rows="4" cols="70"></textarea>
+ 
+ 
+<div id='myDiv123'>...</div><br>
