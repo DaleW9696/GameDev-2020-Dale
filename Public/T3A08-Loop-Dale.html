@@ -1,0 +1,30 @@
+<h1 align=center>T3A08 Loops by Dale</h1>
+
+<input id="myText01" type=text value="20">
+
+<input type="button" value="Loops" onclick="{
+document.getElementById('myDiv01').innerHTML =''  //clears it
+
+  for(myX=0; myX <= document.getElementById('myText01').value; myX++){
+    document.getElementById('myDiv01').innerHTML += '<br>Loop #:' + myX
+
+    if (myX == 3){
+      document.getElementById('myDiv01').innerHTML +=', Wow a Three'
+    }
+  if (myX == 5){
+      document.getElementById('myDiv01').innerHTML +=', Wow a Five'
+    }
+  if (myX == 8){
+      document.getElementById('myDiv01').innerHTML +=', Wow a Eight'
+    }
+  if (myX %2 == 1){
+      document.getElementById('myDiv01').innerHTML +=', Wow its Odd *crab rave*'
+    }
+
+
+
+  }  // end for loop
+
+}">
+
+<div id="myDiv01">...</div>

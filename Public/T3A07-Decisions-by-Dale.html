@@ -1,0 +1,34 @@
+<h1 align=center>T3A07 Decisions by Dale</h1>
+
+<input id="myText01" type=text value="5">
+
+<input type="button" value="Decision" onclick="{
+  
+  if(document.getElementById('myText01').value ==5){
+
+  document.getElementById('myDiv01').innerHTML += '<br>It is a Go, input was: '+document.getElementById('myText01').value
+} 
+  else if(document.getElementById('myText01').value ==3){
+
+  document.getElementById('myDiv01').innerHTML += '<br>It is a San, input was: '+document.getElementById('myText01').value
+}
+else if(document.getElementById('myText01').value ==1){
+
+  document.getElementById('myDiv01').innerHTML += '<br>It is a Ichi, input was: '+document.getElementById('myText01').value
+}
+else if(document.getElementById('myText01').value ==4){
+
+  document.getElementById('myDiv01').innerHTML += '<br>It is a Yon, input was: '+document.getElementById('myText01').value
+}
+else if(document.getElementById('myText01').value ==2){
+
+  document.getElementById('myDiv01').innerHTML += '<br>It is a Ni, input was: '+document.getElementById('myText01').value
+}
+else if(document.getElementById('myText01').value ==0){
+
+  document.getElementById('myDiv01').innerHTML += '<br>It is a Zero, input was: '+document.getElementById('myText01').value
+}
+
+}">
+
+<div id="myDiv01">...</div>
