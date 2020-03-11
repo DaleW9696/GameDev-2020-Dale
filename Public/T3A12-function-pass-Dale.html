@@ -1,0 +1,18 @@
+<script>
+function myFun(myVar){
+  document.getElementById('myDiv01').innerHTML = 'Hello ' +myVar +' :) '
+}
+</script>
+
+
+<h1 align=center>T3A12-Function-Pass-Dale.html</h1>
+Enter Your Name: <input type=text id="myText01" value="Dale">
+
+
+<input type="button" value="Say Hi" onclick="{
+
+  myFun(document.getElementById('myText01').value)
+
+}"><br>
+
+<div id="myDiv01">...</div>
